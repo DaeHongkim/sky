@@ -7,6 +7,7 @@ const navItems = [
   { href: "/map", label: "지도 검색" },
   { href: "/analysis", label: "상권 분석" },
   { href: "/listings", label: "매물 관리" },
+  { href: "/relocation", label: "거주지 이전" },
 ];
 
 export default function Navbar() {

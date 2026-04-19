@@ -25,6 +25,14 @@ const features = [
     color: "bg-purple-50 border-purple-200",
     btn: "bg-purple-600 hover:bg-purple-700",
   },
+  {
+    href: "/relocation",
+    icon: "🚚",
+    title: "거주지 이전 안내",
+    desc: "부산 구/군별 주거 비교, 전입신고 절차, 이사 체크리스트를 확인하세요.",
+    color: "bg-orange-50 border-orange-200",
+    btn: "bg-orange-500 hover:bg-orange-600",
+  },
 ];
 
 const stats = [
