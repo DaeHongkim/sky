@@ -1,38 +1,50 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "/", label: "홈" },
-  { href: "/map", label: "지도 검색" },
-  { href: "/analysis", label: "상권 분석" },
-  { href: "/listings", label: "매물 관리" },
-  { href: "/relocation", label: "거주지 이전" },
+  { href: "/", label: "사주보기" },
+  { href: "/guide", label: "읽는 법" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-blue-600 font-bold text-xl">부산점포</span>
-          <span className="text-gray-400 text-sm">개발 플랫폼</span>
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/30 bg-[rgba(238,243,247,0.72)] backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        <Link href="/" className="flex items-baseline gap-2">
+          <span className="font-[family-name:var(--font-display)] text-xl tracking-tight text-[var(--ink)]">
+            하늘사주
+          </span>
+          <span className="hidden text-xs tracking-[0.2em] text-[var(--ink-soft)] sm:inline">
+            SKY
+          </span>
         </Link>
-        <div className="flex gap-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                pathname === item.href
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-600 hover:bg-gray-100"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="flex items-center gap-1">
+          {navItems.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`px-3 py-2 text-sm transition-colors ${
+                  active
+                    ? "text-[var(--ink)]"
+                    : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+          <Link
+            href="/#saju-form"
+            className="ml-2 rounded-md bg-[var(--ink)] px-3 py-2 text-sm text-[var(--paper)] transition-opacity hover:opacity-90"
+          >
+            시작
+          </Link>
         </div>
       </div>
     </nav>
