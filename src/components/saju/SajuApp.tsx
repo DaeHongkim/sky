@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useState } from "react";
 import { analyzeSaju } from "@/lib/saju/analyze";
 import type { BirthInput, SajuAnalysis } from "@/lib/saju/types";
 import BirthForm from "./BirthForm";
@@ -19,19 +19,23 @@ const defaultBirth: BirthInput = {
   isLeapMonth: false,
 };
 
+const initialAnalysis = analyzeSaju(defaultBirth);
+
 export default function SajuApp() {
   const [birth, setBirth] = useState<BirthInput>(defaultBirth);
-  const [analysis, setAnalysis] = useState<SajuAnalysis | null>(null);
+  const [analysis, setAnalysis] = useState<SajuAnalysis | null>(initialAnalysis);
   const [error, setError] = useState<string | null>(null);
 
-  const runAnalysis = (input: BirthInput) => {
+  const handleSubmit = () => {
     try {
-      const next = analyzeSaju(input);
+      const next = analyzeSaju(birth);
       startTransition(() => {
         setAnalysis(next);
         setError(null);
       });
-      return true;
+      requestAnimationFrame(() => {
+        document.getElementById("result")?.scrollIntoView({ behavior: "smooth" });
+      });
     } catch (err) {
       setAnalysis(null);
       setError(
@@ -39,19 +43,6 @@ export default function SajuApp() {
           ? err.message
           : "사주를 계산하지 못했습니다. 생년월일을 확인해 주세요.",
       );
-      return false;
-    }
-  };
-
-  useEffect(() => {
-    runAnalysis(defaultBirth);
-  }, []);
-
-  const handleSubmit = () => {
-    if (runAnalysis(birth)) {
-      requestAnimationFrame(() => {
-        document.getElementById("result")?.scrollIntoView({ behavior: "smooth" });
-      });
     }
   };
 
