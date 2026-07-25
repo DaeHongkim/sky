@@ -3,6 +3,7 @@
 import { ELEMENT_META } from "@/lib/saju/dayMaster";
 import type { SajuAnalysis } from "@/lib/saju/types";
 import ElementChart from "./ElementChart";
+import ManseryeokBasicInfo from "./ManseryeokBasicInfo";
 import PillarBoard from "./PillarBoard";
 
 export default function SajuResult({
@@ -29,13 +30,14 @@ export default function SajuResult({
           onClick={onReset}
           className="rounded-md border border-[var(--line)] px-4 py-2 text-sm text-[var(--ink-soft)] transition-colors hover:border-[var(--ink)] hover:text-[var(--ink)]"
         >
-          다시 보기
+          입력 수정
         </button>
       </div>
 
+      <ManseryeokBasicInfo basic={analysis.basic} />
+
       <div className="mb-4 text-sm text-[var(--ink-soft)]">
-        음력 {analysis.lunar.year}.{analysis.lunar.month}.{analysis.lunar.day}
-        {analysis.lunar.isLeapMonth ? " (윤달)" : ""}
+        {analysis.basic.lunarText}
         {analysis.voidBranches.length > 0 && (
           <span className="ml-3">공망 {analysis.voidBranches.join("·")}</span>
         )}

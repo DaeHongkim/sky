@@ -26,6 +26,18 @@ export default function BirthForm({ value, onChange, onSubmit }: BirthFormProps)
         onSubmit();
       }}
     >
+      <Field label="이름">
+        <input
+          type="text"
+          required
+          maxLength={40}
+          value={value.name}
+          onChange={(e) => set("name", e.target.value)}
+          placeholder="예: 김대홍"
+          className={inputClass}
+        />
+      </Field>
+
       <div className="grid grid-cols-3 gap-3">
         <Field label="년">
           <input
@@ -62,7 +74,7 @@ export default function BirthForm({ value, onChange, onSubmit }: BirthFormProps)
         </Field>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Field label="태어난 시">
           <select
             value={value.hour === null ? "null" : String(value.hour)}
@@ -82,12 +94,23 @@ export default function BirthForm({ value, onChange, onSubmit }: BirthFormProps)
             ))}
           </select>
         </Field>
+        <Field label="분">
+          <input
+            type="number"
+            min={0}
+            max={59}
+            disabled={value.hour === null}
+            value={value.minute}
+            onChange={(e) => set("minute", Number(e.target.value))}
+            className={`${inputClass} disabled:opacity-50`}
+          />
+        </Field>
         <Field label="성별">
           <div className="grid grid-cols-2 gap-2">
             {(
               [
-                ["male", "남성"],
-                ["female", "여성"],
+                ["male", "乾命"],
+                ["female", "坤命"],
               ] as [Gender, string][]
             ).map(([g, label]) => (
               <button
@@ -135,7 +158,7 @@ export default function BirthForm({ value, onChange, onSubmit }: BirthFormProps)
         className="flex w-full items-center justify-center gap-2 rounded-md bg-[var(--ink)] px-6 py-4 text-[var(--paper)] transition-all hover:-translate-y-0.5 hover:bg-[var(--accent-deep)]"
       >
         <span className="font-[family-name:var(--font-display)] text-lg tracking-wide">
-          사주 보기
+          만세력 보기
         </span>
         <span className="text-[var(--accent)]">→</span>
       </button>

@@ -11,17 +11,84 @@ import type {
   ElementCount,
   FiveElement,
   LuckPillarView,
+  ManseryeokBasicInfo,
   PillarView,
   SajuAnalysis,
 } from "./types";
 
 const ELEMENTS: FiveElement[] = ["목", "화", "토", "금", "수"];
 
+export const HOUR_OPTIONS: { label: string; value: number | null; range: string }[] =
+  [
+    { label: "시간 모름", value: null, range: "시주 제외" },
+    { label: "조자시", value: 0, range: "00:00–00:59" },
+    { label: "축시", value: 1, range: "01:00–02:59" },
+    { label: "인시", value: 3, range: "03:00–04:59" },
+    { label: "묘시", value: 5, range: "05:00–06:59" },
+    { label: "진시", value: 7, range: "07:00–08:59" },
+    { label: "사시", value: 9, range: "09:00–10:59" },
+    { label: "오시", value: 11, range: "11:00–12:59" },
+    { label: "미시", value: 13, range: "13:00–14:59" },
+    { label: "신시", value: 15, range: "15:00–16:59" },
+    { label: "유시", value: 17, range: "17:00–18:59" },
+    { label: "술시", value: 19, range: "19:00–20:59" },
+    { label: "해시", value: 21, range: "21:00–22:59" },
+    { label: "야자시", value: 23, range: "23:00–23:59" },
+  ];
+
 function asElement(value: string): FiveElement {
   if (ELEMENTS.includes(value as FiveElement)) {
     return value as FiveElement;
   }
   return "토";
+}
+
+function pad2(n: number): string {
+  return String(n).padStart(2, "0");
+}
+
+function hourBranchLabel(hour: number | null): string {
+  if (hour === null) return "시간 모름";
+  return HOUR_OPTIONS.find((opt) => opt.value === hour)?.label ?? "시진";
+}
+
+export function buildBasicInfo(
+  input: BirthInput,
+  pillars: PillarView[],
+  lunar: SajuAnalysis["lunar"],
+): ManseryeokBasicInfo {
+  const calendarLabel = input.isLunar ? "음력" : "양력";
+  const genderLabel = input.gender === "male" ? "乾命(남)" : "坤命(여)";
+  const branch = hourBranchLabel(input.hour);
+  const timeText =
+    input.hour === null
+      ? "시간 모름"
+      : `${pad2(input.hour)}:${pad2(input.minute)}`;
+  const solarText = `${input.year}년 ${input.month}월 ${input.day}일`;
+  const lunarText = `음력 ${lunar.year}.${lunar.month}.${lunar.day}${
+    lunar.isLeapMonth ? " (윤달)" : ""
+  }`;
+  const known = pillars.filter((p) => p.stem !== "?");
+  const pillarsLine = known.map((p) => p.korean).join(" · ");
+  const pillarsHanja = known.map((p) => p.hanja).join(" · ");
+
+  const headline =
+    input.hour === null
+      ? `基本 ${solarText} (${calendarLabel}) · ${genderLabel}`
+      : `基本 ${solarText} (${calendarLabel}) ${timeText} · ${genderLabel}`;
+
+  return {
+    name: input.name.trim() || "이름 미상",
+    headline,
+    calendarLabel,
+    genderLabel,
+    hourBranchLabel: branch,
+    timeText,
+    solarText,
+    lunarText,
+    pillarsLine,
+    pillarsHanja,
+  };
 }
 
 export function analyzeSaju(input: BirthInput): SajuAnalysis {
@@ -146,7 +213,10 @@ export function analyzeSaju(input: BirthInput): SajuAnalysis {
     ? `일간 ${dayMaster}(${ELEMENT_META[dayMasterElement].hanja}) — ${reading.title}. ${reading.nature}`
     : `일간 ${dayMaster}을 중심으로 사주가 구성됩니다.`;
 
+  const basic = buildBasicInfo(input, pillars, lunar);
+
   return {
+    basic,
     pillars,
     dayMaster,
     dayMasterHanja: STEM_HANJA[dayMaster] ?? dayMaster,
@@ -162,21 +232,3 @@ export function analyzeSaju(input: BirthInput): SajuAnalysis {
     fortuneHints,
   };
 }
-
-export const HOUR_OPTIONS: { label: string; value: number | null; range: string }[] =
-  [
-    { label: "시간 모름", value: null, range: "시주 제외" },
-    { label: "조자시", value: 0, range: "00:00–00:59" },
-    { label: "축시", value: 1, range: "01:00–02:59" },
-    { label: "인시", value: 3, range: "03:00–04:59" },
-    { label: "묘시", value: 5, range: "05:00–06:59" },
-    { label: "진시", value: 7, range: "07:00–08:59" },
-    { label: "사시", value: 9, range: "09:00–10:59" },
-    { label: "오시", value: 11, range: "11:00–12:59" },
-    { label: "미시", value: 13, range: "13:00–14:59" },
-    { label: "신시", value: 15, range: "15:00–16:59" },
-    { label: "유시", value: 17, range: "17:00–18:59" },
-    { label: "술시", value: 19, range: "19:00–20:59" },
-    { label: "해시", value: 21, range: "21:00–22:59" },
-    { label: "야자시", value: 23, range: "23:00–23:59" },
-  ];
