@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/", label: "사주보기" },
+  { href: "/daily", label: "매일운세" },
   { href: "/guide", label: "읽는 법" },
 ];
 
@@ -40,10 +41,10 @@ export default function Navbar() {
             );
           })}
           <Link
-            href="/#saju-form"
+            href="/daily"
             className="ml-2 rounded-md bg-[var(--ink)] px-3 py-2 text-sm text-[var(--paper)] transition-opacity hover:opacity-90"
           >
-            시작
+            오늘
           </Link>
         </div>
       </div>
