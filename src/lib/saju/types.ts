@@ -75,3 +75,10 @@ export interface SajuAnalysis {
   personality: string[];
   fortuneHints: string[];
 }
+
+export type {
+  DailyCategory,
+  DailyFortune,
+  FortuneLevel,
+  FortuneTone,
+} from "./dailyTypes";

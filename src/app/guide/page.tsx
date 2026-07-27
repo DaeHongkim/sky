@@ -17,6 +17,10 @@ const sections = [
     title: "대운",
     body: "약 10년 단위로 바뀌는 큰 운의 물결입니다. 성별과 연간의 음양에 따라 순행·역행이 달라집니다.",
   },
+  {
+    title: "오늘의 운세",
+    body: "매일 바뀌는 일진(日辰)과 내 일간의 십신 관계로 하루의 결을 읽습니다. 애정·재물·일·건강은 참고용 힌트이며, 중요한 결정은 전문가와 함께하세요.",
+  },
 ];
 
 export default function GuidePage() {
@@ -42,12 +46,20 @@ export default function GuidePage() {
         ))}
       </div>
 
-      <Link
-        href="/#saju-form"
-        className="mt-14 inline-flex rounded-md bg-[var(--ink)] px-5 py-3 text-[var(--paper)] transition-opacity hover:opacity-90"
-      >
-        내 사주 보러 가기
-      </Link>
+      <div className="mt-14 flex flex-wrap gap-3">
+        <Link
+          href="/#saju-form"
+          className="inline-flex rounded-md bg-[var(--ink)] px-5 py-3 text-[var(--paper)] transition-opacity hover:opacity-90"
+        >
+          내 사주 보러 가기
+        </Link>
+        <Link
+          href="/fortune"
+          className="inline-flex rounded-md border border-[var(--line)] px-5 py-3 text-[var(--ink)] transition-colors hover:border-[var(--ink)]"
+        >
+          오늘의 운세
+        </Link>
+      </div>
     </div>
   );
 }

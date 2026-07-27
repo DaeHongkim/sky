@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/", label: "사주보기" },
+  { href: "/fortune", label: "오늘의 운세" },
   { href: "/guide", label: "읽는 법" },
 ];
 

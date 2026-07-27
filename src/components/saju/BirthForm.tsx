@@ -7,12 +7,18 @@ interface BirthFormProps {
   value: BirthInput;
   onChange: (next: BirthInput) => void;
   onSubmit: () => void;
+  submitLabel?: string;
 }
 
 const inputClass =
   "w-full h-12 rounded-md border border-[var(--line)] bg-white/70 px-3.5 text-[var(--ink)] outline-none focus:border-[var(--ink-soft)] focus:shadow-[0_0_0_3px_rgba(159,184,212,0.35)]";
 
-export default function BirthForm({ value, onChange, onSubmit }: BirthFormProps) {
+export default function BirthForm({
+  value,
+  onChange,
+  onSubmit,
+  submitLabel = "만세력 보기",
+}: BirthFormProps) {
   const set = <K extends keyof BirthInput>(key: K, next: BirthInput[K]) => {
     onChange({ ...value, [key]: next });
   };
@@ -158,7 +164,7 @@ export default function BirthForm({ value, onChange, onSubmit }: BirthFormProps)
         className="flex w-full items-center justify-center gap-2 rounded-md bg-[var(--ink)] px-6 py-4 text-[var(--paper)] transition-all hover:-translate-y-0.5 hover:bg-[var(--accent-deep)]"
       >
         <span className="font-[family-name:var(--font-display)] text-lg tracking-wide">
-          만세력 보기
+          {submitLabel}
         </span>
         <span className="text-[var(--accent)]">→</span>
       </button>

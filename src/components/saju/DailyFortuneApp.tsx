@@ -2,10 +2,11 @@
 
 import { startTransition, useState } from "react";
 import Link from "next/link";
-import { analyzeSaju } from "@/lib/saju/analyze";
-import type { BirthInput, SajuAnalysis } from "@/lib/saju/types";
+import { analyzeDailyFortune } from "@/lib/saju/dailyFortune";
+import type { BirthInput } from "@/lib/saju/types";
+import type { DailyFortune } from "@/lib/saju/dailyTypes";
 import BirthForm from "./BirthForm";
-import SajuResult from "./SajuResult";
+import FortuneResult from "./FortuneResult";
 
 /** 김대홍 — 基本 1992년 3월 15일 (양력) 15:49 · 乾命(남) */
 const defaultBirth: BirthInput = {
@@ -20,29 +21,29 @@ const defaultBirth: BirthInput = {
   isLeapMonth: false,
 };
 
-const initialAnalysis = analyzeSaju(defaultBirth);
+const initialFortune = analyzeDailyFortune(defaultBirth);
 
-export default function SajuApp() {
+export default function DailyFortuneApp() {
   const [birth, setBirth] = useState<BirthInput>(defaultBirth);
-  const [analysis, setAnalysis] = useState<SajuAnalysis | null>(initialAnalysis);
+  const [fortune, setFortune] = useState<DailyFortune | null>(initialFortune);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = () => {
     try {
-      const next = analyzeSaju(birth);
+      const next = analyzeDailyFortune(birth);
       startTransition(() => {
-        setAnalysis(next);
+        setFortune(next);
         setError(null);
       });
       requestAnimationFrame(() => {
-        document.getElementById("result")?.scrollIntoView({ behavior: "smooth" });
+        document.getElementById("daily-result")?.scrollIntoView({ behavior: "smooth" });
       });
     } catch (err) {
-      setAnalysis(null);
+      setFortune(null);
       setError(
         err instanceof Error
           ? err.message
-          : "사주를 계산하지 못했습니다. 생년월일을 확인해 주세요.",
+          : "오늘의 운세를 계산하지 못했습니다. 생년월일을 확인해 주세요.",
       );
     }
   };
@@ -55,31 +56,40 @@ export default function SajuApp() {
         <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 md:justify-center md:pb-24 md:pt-24">
           <div className="max-w-2xl">
             <p className="animate-rise text-xs tracking-[0.35em] text-[var(--ink-soft)]">
-              SKY SAJU
+              TODAY · 日辰
             </p>
             <h1 className="animate-rise-delay-1 mt-3 font-[family-name:var(--font-display)] text-5xl leading-[1.05] tracking-tight text-[var(--ink)] md:text-7xl">
-              하늘사주
+              오늘의 운세
             </h1>
             <p className="animate-rise-delay-2 mt-5 max-w-md text-base leading-relaxed text-[var(--ink-soft)] md:text-lg">
-              만세력 기본 정보로 네 기둥을 세우고, 일간과 오행의 결을 읽습니다.
+              내 일간과 오늘 일진의 십신으로, 하루의 결을 짧게 읽습니다.
             </p>
-            {analysis && (
+            {fortune && (
               <p className="animate-rise-delay-2 mt-4 text-sm text-[var(--ink-soft)]">
-                지금 보는 만세력 · {analysis.basic.name} · {analysis.basic.headline}
+                {fortune.dateText} ({fortune.weekday}) · 일진 {fortune.todayPillar}
+                ({fortune.todayPillarHanja}) · {fortune.level}
               </p>
             )}
             <p className="animate-rise-delay-2 mt-3">
               <Link
-                href="/fortune"
+                href="/"
                 className="text-sm text-[var(--accent-deep)] underline-offset-4 hover:underline"
               >
-                오늘의 운세 보기 →
+                사주팔자 보기 →
               </Link>
             </p>
           </div>
 
           <div className="mt-10 md:mt-12">
-            <BirthForm value={birth} onChange={setBirth} onSubmit={handleSubmit} />
+            <BirthForm
+              value={birth}
+              onChange={setBirth}
+              onSubmit={handleSubmit}
+              submitLabel="오늘의 운세 보기"
+            />
+            <p className="mt-3 text-xs text-[var(--ink-soft)]">
+              생년월일을 입력한 뒤 시작을 누르면 오늘 날짜 기준 운세가 열립니다.
+            </p>
             {error && (
               <p className="mt-4 text-sm text-[var(--fire)]" role="alert">
                 {error}
@@ -89,10 +99,10 @@ export default function SajuApp() {
         </div>
       </section>
 
-      {analysis && (
+      {fortune && (
         <div className="border-t border-[var(--line)] bg-[var(--mist)]/60">
-          <SajuResult
-            analysis={analysis}
+          <FortuneResult
+            fortune={fortune}
             onReset={() => {
               document.getElementById("saju-form")?.scrollIntoView({ behavior: "smooth" });
             }}
@@ -101,7 +111,7 @@ export default function SajuApp() {
       )}
 
       <footer className="border-t border-[var(--line)] px-4 py-10 text-center text-xs text-[var(--ink-soft)]">
-        하늘사주 · 만세력 기반 참고용 해석입니다. 중요한 결정은 전문가와 함께하세요.
+        하늘사주 · 오늘의 운세는 일진·십신 기반 참고용 해석입니다.
       </footer>
     </>
   );
@@ -114,12 +124,21 @@ function HeroBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 42%, var(--sky-low) 68%, var(--paper) 100%)",
+            "linear-gradient(165deg, #7a9bb8 0%, var(--sky-mid) 38%, var(--sky-low) 65%, var(--paper) 100%)",
         }}
       />
 
-      <div className="animate-breath absolute -left-20 top-[18%] h-56 w-56 rounded-full bg-white/35 blur-3xl" />
-      <div className="animate-drift absolute right-[8%] top-[22%] h-40 w-72 rounded-full bg-white/30 blur-3xl" />
+      <div className="animate-breath absolute -right-16 top-[12%] h-64 w-64 rounded-full bg-white/30 blur-3xl" />
+      <div className="animate-drift absolute left-[6%] top-[30%] h-36 w-64 rounded-full bg-white/25 blur-3xl" />
+
+      {/* Soft sun arc for "today" */}
+      <div
+        className="absolute left-1/2 top-[18%] h-32 w-32 -translate-x-1/2 rounded-full md:top-[14%] md:h-40 md:w-40"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,236,200,0.95) 0%, rgba(255,220,160,0.4) 42%, rgba(255,220,160,0) 70%)",
+        }}
+      />
 
       <svg
         className="absolute bottom-0 left-0 w-full text-[var(--ink)]"
@@ -128,27 +147,19 @@ function HeroBackdrop() {
       >
         <path
           fill="currentColor"
-          fillOpacity="0.08"
-          d="M0 260C180 220 280 180 420 190C560 200 620 260 780 250C940 240 1040 160 1180 170C1320 180 1380 220 1440 230V420H0V260Z"
+          fillOpacity="0.07"
+          d="M0 240C200 200 320 170 480 185C640 200 720 260 880 245C1040 230 1160 160 1300 175C1380 185 1420 210 1440 220V420H0V240Z"
         />
         <path
           fill="currentColor"
-          fillOpacity="0.14"
-          d="M0 310C160 280 260 250 400 255C560 262 640 320 800 300C980 276 1080 210 1220 230C1340 246 1400 280 1440 290V420H0V310Z"
+          fillOpacity="0.12"
+          d="M0 300C180 270 300 240 460 250C640 262 740 320 900 300C1080 276 1180 220 1320 240C1380 250 1420 270 1440 280V420H0V300Z"
         />
         <path
           fill="var(--paper)"
-          d="M0 350C200 330 320 300 480 310C650 322 720 360 880 345C1060 328 1180 290 1320 310C1380 318 1420 330 1440 336V420H0V350Z"
+          d="M0 345C220 325 340 300 500 310C680 322 760 360 920 345C1100 328 1220 295 1360 315C1400 322 1425 330 1440 334V420H0V345Z"
         />
       </svg>
-
-      <div
-        className="absolute left-1/2 top-[26%] h-28 w-28 -translate-x-1/2 rounded-full md:top-[22%] md:h-36 md:w-36"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(255,236,200,0.9) 0%, rgba(255,220,160,0.35) 45%, rgba(255,220,160,0) 72%)",
-        }}
-      />
     </div>
   );
 }

@@ -14,9 +14,9 @@ const body = Gowun_Dodum({
 });
 
 export const metadata: Metadata = {
-  title: "하늘사주 — 사주팔자 시스템",
+  title: "하늘사주 — 사주팔자 · 오늘의 운세",
   description:
-    "생년월일시로 사주팔자를 세우고 일간·오행·대운을 읽는 하늘사주 시스템",
+    "생년월일시로 사주팔자를 세우고, 일진·십신으로 오늘의 운세를 읽는 하늘사주",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
