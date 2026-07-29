@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { href: "/", label: "사주보기" },
   { href: "/guide", label: "읽는 법" },
+  { href: "/pricing", label: "요금" },
 ];
 
 export default function Navbar() {
