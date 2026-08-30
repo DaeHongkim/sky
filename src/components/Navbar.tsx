@@ -11,6 +11,10 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname();
 
+  if (pathname?.startsWith("/company")) {
+    return null;
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/30 bg-[rgba(238,243,247,0.72)] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
