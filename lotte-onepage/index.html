@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LOTTE — Lifetime Value Creator</title>
+<meta name="description" content="롯데그룹 공식 홈페이지 스타일 원페이지 데모 사이트" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Icon sprite (placeholder monoline icons — swap for brand icon set later) -->
+<svg style="display:none">
+  <symbol id="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></symbol>
+  <symbol id="icon-heart-hand" viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.5-8.8C.7 8.8 2.3 5 6 5c2 0 3.4 1.2 4 2 0.6-0.8 2-2 4-2 3.7 0 5.3 3.8 3.5 7.2C19 16.6 12 21 12 21z"/></symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></symbol>
+  <symbol id="icon-map-book" viewBox="0 0 24 24"><path d="M4 5l6-2 6 2 4-1v15l-4 1-6-2-6 2z"/><line x1="10" y1="3" x2="10" y2="18"/><line x1="16" y1="5" x2="16" y2="20"/></symbol>
+  <symbol id="icon-baby" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 21c0-4 3-6 6-6s6 2 6 6"/></symbol>
+  <symbol id="icon-family" viewBox="0 0 24 24"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="8" r="2.4"/><path d="M2 21c0-3.5 2.6-6 6-6s6 2.5 6 6"/><path d="M14 21c0-2.6 1.8-4.6 4-4.6s4 2 4 4.6"/></symbol>
+  <symbol id="icon-person" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></symbol>
+  <symbol id="icon-senior" viewBox="0 0 24 24"><circle cx="11" cy="6" r="3"/><path d="M6 21c0-3.5 2.5-6 5-6"/><path d="M14 21l2-9 4 3M14 12h5"/></symbol>
+  <symbol id="icon-plus" viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></symbol>
+  <symbol id="icon-arrow-down" viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><polyline points="6 14 12 20 18 14"/></symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></symbol>
+  <symbol id="icon-youtube" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="icon-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="icon-facebook" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M14 8h-1.5A1.5 1.5 0 0 0 11 9.5V11H9v3h2v6h3v-6h2l0.5-3H14V9.7c0-.4.3-.7.7-.7H14z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="icon-blog" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></symbol>
+</svg>
+
+<!-- ============ Header ============ -->
+<header class="site-header" id="siteHeader">
+  <button class="menu-toggle" id="menuToggle" aria-label="전체 메뉴 열기" aria-expanded="false">
+    <svg class="icon icon-open"><use href="#icon-hamburger"/></svg>
+    <svg class="icon icon-close"><use href="#icon-close"/></svg>
+    <span class="menu-toggle__label">MENU</span>
+  </button>
+
+  <a class="site-logo" href="#hero" aria-label="LOTTE 홈으로 이동">
+    <img src="assets/icons/logo.svg" alt="LOTTE" width="40" height="40" />
+  </a>
+
+  <nav class="lang-select" aria-label="언어 선택">
+    <a href="#" class="lang-item is-active" data-lang="KR">KR</a>
+    <a href="#" class="lang-item" data-lang="EN">EN</a>
+    <a href="#" class="lang-item" data-lang="CN">CN</a>
+    <a href="#" class="lang-item" data-lang="JP">JP</a>
+    <a href="#" class="lang-item" data-lang="VN">VN</a>
+    <a href="#" class="lang-item" data-lang="ID">ID</a>
+  </nav>
+</header>
+
+<!-- ============ Left dot navigation ============ -->
+<nav class="dot-nav" id="dotNav" aria-label="섹션 내비게이션"></nav>
+
+<!-- ============ Fullscreen GNB overlay ============ -->
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+  <div class="menu-overlay__bg" style="background-image:url('assets/images/menu-bg.jpg')"></div>
+
+  <div class="menu-overlay__top">
+    <nav class="lang-select lang-select--overlay" aria-label="언어 선택">
+      <a href="#" class="lang-item is-active" data-lang="KR">KR</a>
+      <a href="#" class="lang-item" data-lang="EN">EN</a>
+      <a href="#" class="lang-item" data-lang="CN">CN</a>
+      <a href="#" class="lang-item" data-lang="JP">JP</a>
+      <a href="#" class="lang-item" data-lang="VN">VN</a>
+      <a href="#" class="lang-item" data-lang="ID">ID</a>
+    </nav>
+    <button class="menu-overlay__close" id="menuOverlayClose" aria-label="메뉴 닫기">
+      <svg class="icon"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+
+  <div class="menu-overlay__body">
+    <ul class="gnb">
+      <li class="gnb__item">
+        <a href="#csv" class="gnb__title js-gnb-link"><span>CSV</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">영유아</a></li>
+          <li><a href="#">아동·청소년</a></li>
+          <li><a href="#">청년</a></li>
+          <li><a href="#">중·노년</a></li>
+          <li><a href="#">기타</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#business" class="gnb__title js-gnb-link"><span>BUSINESS</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">식품</a></li>
+          <li><a href="#">유통</a></li>
+          <li><a href="#">화학·건설·제조</a></li>
+          <li><a href="#">관광·서비스·금융</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#about" class="gnb__title js-gnb-link"><span>ABOUT LOTTE</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">미션</a></li>
+          <li><a href="#">비전</a></li>
+          <li><a href="#">핵심가치</a></li>
+          <li><a href="#">CEO</a></li>
+          <li><a href="#">기업문화</a></li>
+          <li><a href="#">역사관</a></li>
+          <li><a href="#">CI</a></li>
+          <li><a href="#">인권경영헌장</a></li>
+          <li><a href="#">환경경영헌장</a></li>
+          <li><a href="#">AI 윤리헌장</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#esg" class="gnb__title js-gnb-link"><span>ESG</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">롯데 ESG</a></li>
+          <li><a href="#">지속가능경영보고서</a></li>
+          <li><a href="#">ESG 평가</a></li>
+          <li><a href="#">ESG 뉴스</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#" class="gnb__title"><span>COMPLIANCE</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">롯데의 컴플라이언스</a></li>
+          <li><a href="#">컴플라이언스위원회</a></li>
+          <li><a href="#">행동강령</a></li>
+          <li><a href="#">파트너사 행동규범</a></li>
+          <li><a href="#">글로벌 부패방지 가이드라인</a></li>
+          <li><a href="#">ISO37301 규범준수경영시스템</a></li>
+          <li><a href="#">신문고</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#cards" class="gnb__title js-gnb-link"><span>PR</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">뉴스</a></li>
+          <li><a href="#">영상</a></li>
+          <li><a href="#">SNS</a></li>
+          <li><a href="#">사보</a></li>
+          <li><a href="#">브로슈어</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#cards" class="gnb__title js-gnb-link"><span>IR</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">지배구조</a></li>
+          <li><a href="#">주주정책</a></li>
+          <li><a href="#">지배구조헌장 및 규정</a></li>
+          <li><a href="#">공시</a></li>
+          <li><a href="#">공고</a></li>
+          <li><a href="#">IR자료</a></li>
+          <li><a href="#">주가정보</a></li>
+          <li><a href="#">재무정보</a></li>
+          <li><a href="#">Contact IR</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#cards" class="gnb__title js-gnb-link"><span>CAREERS</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">인재상</a></li>
+          <li><a href="#">채용전형</a></li>
+          <li><a href="#">인사제도</a></li>
+        </ul>
+      </li>
+      <li class="gnb__item">
+        <a href="#" class="gnb__title"><span>CS CENTER</span><span class="gnb__accordion-chevron"></span></a>
+        <ul class="gnb__sub">
+          <li><a href="#">문의하기</a></li>
+          <li><a href="#">오시는 길</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="snap-section hero" id="hero" data-label="HOME">
+    <video class="section-bg-video" autoplay muted loop playsinline poster="assets/images/hero-bg.jpg">
+      <source src="assets/videos/hero-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="section-overlay section-overlay--hero"></div>
+    <div class="hero__side-text" aria-hidden="true">LIFETIME&nbsp;VALUE&nbsp;CREATOR&nbsp;·&nbsp;오늘을&nbsp;새롭게,&nbsp;내일을&nbsp;이롭게&nbsp;·</div>
+
+    <div class="section-inner hero__inner">
+      <p class="hero__slogan fade-in">Lifetime Value Creator</p>
+      <h1 class="hero__title fade-in">오늘을 새롭게,<br />내일을 이롭게</h1>
+      <p class="hero__wordmark fade-in">LOTTE</p>
+
+      <div class="hero__nav fade-in">
+        <a class="hero__nav-item" href="#csv">
+          <span class="hero__nav-icon"><svg class="icon"><use href="#icon-heart-hand"/></svg></span>
+          <span>CSV</span>
+        </a>
+        <a class="hero__nav-item" href="#business">
+          <span class="hero__nav-icon"><svg class="icon"><use href="#icon-globe"/></svg></span>
+          <span>Business</span>
+        </a>
+        <a class="hero__nav-item" href="#about">
+          <span class="hero__nav-icon"><svg class="icon"><use href="#icon-map-book"/></svg></span>
+          <span>About LOTTE</span>
+        </a>
+      </div>
+    </div>
+
+    <a class="scroll-cue" href="#csv" aria-label="다음 섹션으로 스크롤">
+      <span>SCROLL</span>
+      <svg class="icon"><use href="#icon-arrow-down"/></svg>
+    </a>
+  </section>
+
+  <!-- ============ 2. CSV ============ -->
+  <section class="snap-section csv" id="csv" data-label="CSV">
+    <video class="section-bg-video" autoplay muted loop playsinline poster="assets/images/csv-bg.jpg">
+      <source src="assets/videos/csv-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="section-overlay"></div>
+
+    <div class="section-inner">
+      <span class="section-tag fade-in">CSV</span>
+      <h2 class="section-title fade-in">CSV</h2>
+      <p class="section-desc fade-in">전 생애 주기에 걸쳐 풍요로운 세상이 될 수 있도록<br />사회적 인프라를 구축하고 다양한 나눔 활동을 실천해 오고 있습니다.</p>
+
+      <ul class="csv__list fade-in">
+        <li><span class="csv__icon"><svg class="icon"><use href="#icon-baby"/></svg></span><span>영유아</span></li>
+        <li><span class="csv__icon"><svg class="icon"><use href="#icon-family"/></svg></span><span>아동·청소년</span></li>
+        <li><span class="csv__icon"><svg class="icon"><use href="#icon-person"/></svg></span><span>청년</span></li>
+        <li><span class="csv__icon"><svg class="icon"><use href="#icon-senior"/></svg></span><span>중·노년</span></li>
+        <li><span class="csv__icon"><svg class="icon"><use href="#icon-plus"/></svg></span><span>기타</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3. BUSINESS ============ -->
+  <section class="snap-section business" id="business" data-label="BUSINESS">
+    <img class="section-bg-image" src="assets/images/business-bg.jpg" alt="" />
+    <div class="section-overlay section-overlay--left"></div>
+
+    <div class="section-inner">
+      <span class="section-tag fade-in">BUSINESS</span>
+      <h2 class="section-title fade-in">BUSINESS</h2>
+      <p class="section-desc fade-in">롯데는 전 세계에 풍요로운 가치를 전하며<br />아시아 TOP10 글로벌 그룹으로 도약해 나가고 있습니다.</p>
+
+      <ul class="biz-cards fade-in">
+        <li class="biz-card">
+          <h3>식품</h3>
+          <p>제과와 음료, 주류, 식품 소재와 가공식품, 외식을 아우르는 국내 최대의 식품기업군</p>
+        </li>
+        <li class="biz-card">
+          <h3>유통</h3>
+          <p>모바일 사업을 확대하고 유통 채널 혁신과 점포 포맷 다변화를 적극 추진 중인 유통부문</p>
+        </li>
+        <li class="biz-card">
+          <h3>화학/건설/제조</h3>
+          <p>기술 개발과 품질 혁신, 생산능력 향상을 통해 글로벌 기업으로 도약</p>
+        </li>
+        <li class="biz-card">
+          <h3>관광/서비스/금융</h3>
+          <p>최고의 시설과 서비스로 즐거운 경험과 남다른 행복을 선사</p>
+        </li>
+      </ul>
+
+      <a class="section-more fade-in" href="#">BUSINESS MAIN</a>
+    </div>
+  </section>
+
+  <!-- ============ 4. ABOUT LOTTE ============ -->
+  <section class="snap-section about" id="about" data-label="ABOUT LOTTE">
+    <video class="section-bg-video" autoplay muted loop playsinline poster="assets/images/about-bg.jpg">
+      <source src="assets/videos/about-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="section-overlay section-overlay--soft"></div>
+
+    <div class="section-inner">
+      <span class="section-tag fade-in">ABOUT LOTTE</span>
+      <h2 class="section-title fade-in">About LOTTE</h2>
+      <p class="section-desc fade-in">인류의 행복한 삶을 창조하는 글로벌 기업,<br />그 원대한 꿈을 향한 롯데의 도전은 계속됩니다.</p>
+
+      <ul class="link-row fade-in">
+        <li><a href="#">Mission</a></li>
+        <li><a href="#">Vision</a></li>
+        <li><a href="#">Core Value</a></li>
+        <li><a href="#">Corporate Culture</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5. ESG ============ -->
+  <section class="snap-section esg" id="esg" data-label="ESG">
+    <img class="section-bg-image" src="assets/images/esg-bg.jpg" alt="" />
+    <div class="section-overlay section-overlay--bottom-only"></div>
+
+    <div class="section-inner">
+      <span class="section-tag fade-in">ESG</span>
+      <h2 class="section-title fade-in">ESG</h2>
+      <p class="section-desc fade-in">건전한 성장으로 기업가치 향상과 함께<br />인류의 풍요로운 삶에 기여합니다.</p>
+
+      <ul class="link-row fade-in">
+        <li><a href="#">롯데 ESG</a></li>
+        <li><a href="#">지속가능경영보고서</a></li>
+        <li><a href="#">ESG 평가</a></li>
+        <li><a href="#">ESG 뉴스</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 6. PR / IR / CAREERS 카드 섹션 ============ -->
+  <section class="snap-section cards" id="cards" data-label="PR·IR·CAREERS">
+    <div class="section-inner cards__inner">
+      <ul class="card-grid">
+        <li class="promo-card fade-in">
+          <a href="#">
+            <img src="assets/images/card-pr.jpg" alt="" />
+            <div class="promo-card__overlay"></div>
+            <div class="promo-card__body">
+              <h3>PR</h3>
+              <p>아시아를 대표하는 글로벌 기업,<br />롯데의 소식</p>
+              <span class="promo-card__arrow"><svg class="icon"><use href="#icon-arrow-right"/></svg></span>
+            </div>
+          </a>
+        </li>
+        <li class="promo-card fade-in">
+          <a href="#">
+            <img src="assets/images/card-ir.jpg" alt="" />
+            <div class="promo-card__overlay"></div>
+            <div class="promo-card__body">
+              <h3>IR</h3>
+              <p>투명하고 효율적인 경영을 위한<br />롯데의 사업성과</p>
+              <span class="promo-card__arrow"><svg class="icon"><use href="#icon-arrow-right"/></svg></span>
+            </div>
+          </a>
+        </li>
+        <li class="promo-card fade-in">
+          <a href="#">
+            <img src="assets/images/card-careers.jpg" alt="" />
+            <div class="promo-card__overlay"></div>
+            <div class="promo-card__body">
+              <h3>CAREERS</h3>
+              <p>함께 가는 친구,<br />롯데 신입채용</p>
+              <span class="promo-card__arrow"><svg class="icon"><use href="#icon-arrow-right"/></svg></span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <img src="assets/icons/logo.svg" alt="LOTTE" width="32" height="32" />
+      <nav class="site-footer__links" aria-label="푸터 링크">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">CS CENTER</a>
+        <a href="#">SITEMAP</a>
+      </nav>
+    </div>
+
+    <div class="site-footer__mid">
+      <div class="accessibility-badge" title="웹접근성 품질인증 마크 (샘플 플레이스홀더)">
+        <span>WEB<br />ACCESS.</span>
+      </div>
+      <ul class="sns-list">
+        <li><a href="#" aria-label="YouTube"><svg class="icon"><use href="#icon-youtube"/></svg></a></li>
+        <li><a href="#" aria-label="Instagram"><svg class="icon"><use href="#icon-instagram"/></svg></a></li>
+        <li><a href="#" aria-label="Facebook"><svg class="icon"><use href="#icon-facebook"/></svg></a></li>
+        <li><a href="#" aria-label="Blog"><svg class="icon"><use href="#icon-blog"/></svg></a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__family">
+      <label for="lotteFamilySelect" class="sr-only">LOTTE Family</label>
+      <select id="lotteFamilySelect">
+        <option value="">LOTTE Family</option>
+        <option>롯데그룹 채용사이트</option>
+        <option>대홍기획</option>
+        <option>롯데건설</option>
+        <option>롯데글로벌로지스</option>
+        <option>롯데마트</option>
+        <option>롯데멤버스</option>
+        <option>롯데면세점</option>
+        <option>롯데물산</option>
+        <option>롯데뮤지엄</option>
+        <option>롯데미래전략연구소</option>
+        <option>롯데백화점</option>
+        <option>롯데상사</option>
+        <option>롯데쇼핑e커머스</option>
+        <option>롯데스카이힐C.C.</option>
+        <option>롯데시네마</option>
+        <option>롯데아사히주류</option>
+        <option>롯데알미늄</option>
+        <option>롯데엠시시</option>
+        <option>롯데월드</option>
+        <option>롯데웰푸드</option>
+        <option>롯데이네오스화학</option>
+        <option>롯데이노베이트</option>
+        <option>롯데인재개발원</option>
+        <option>롯데자이언츠</option>
+        <option>롯데정밀화학</option>
+        <option>롯데제이티비</option>
+        <option>롯데중앙연구소</option>
+        <option>롯데지알에스</option>
+        <option>롯데지에프알</option>
+        <option>롯데바이오로직스</option>
+        <option>롯데에너지머티리얼즈</option>
+        <option>롯데칠성음료</option>
+        <option>롯데케미칼</option>
+        <option>롯데캐피탈</option>
+        <option>롯데콘서트홀</option>
+        <option>롯데피플네트웍스</option>
+        <option>롯데하이마트</option>
+        <option>롯데호텔</option>
+        <option>롯데홈쇼핑</option>
+        <option>롯데CM사업본부</option>
+      </select>
+      <button type="button" id="familyGoBtn">이동</button>
+      <p class="site-footer__family-msg" id="familyGoMsg" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="site-footer__bottom">
+    <p>Copyright &copy; <span id="copyrightYears"></span> LOTTE. All Rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
