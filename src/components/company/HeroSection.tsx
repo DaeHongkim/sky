@@ -8,7 +8,14 @@ export default function HeroSection() {
 
   return (
     <section className="hh-hero-section">
-      <video className="hh-hero-video-bg" autoPlay muted loop playsInline>
+      <video
+        className="hh-hero-video-bg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="https://d8j0ntlcm91z4.cloudfront.net/user_3IFVlh83yxpn7dSqzy3C9YyRaWI/hf_20260903_010923_1464a08f-6a06-4826-9866-0bfa6faa1816.png"
+      >
         <source
           src="https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-architecture-and-interior-41551-large.mp4"
           type="video/mp4"
