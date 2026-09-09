@@ -22,7 +22,7 @@ export default async function SeekerMyPage() {
     { label: "이력서", value: resumeCount, href: "/recruit/seeker/resumes" },
     { label: "지원현황", value: applicationCount, href: "/recruit/seeker/applications" },
     { label: "스크랩", value: scrapCount, href: "/recruit/seeker/scraps" },
-    { label: "안읽은 알림", value: unreadNotifications, href: "/recruit/seeker/notifications" },
+    { label: "안읽은 알림", value: unreadNotifications, href: "/recruit/notifications" },
   ];
 
   return (

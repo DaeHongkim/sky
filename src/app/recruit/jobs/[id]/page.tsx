@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/auth/current-user";
 import Card from "@/components/recruit/ui/Card";
 import Badge from "@/components/recruit/ui/Badge";
 import ApplyPanel from "@/components/recruit/ApplyPanel";
+import ScrapButton from "@/components/recruit/ScrapButton";
 
 export const dynamic = "force-dynamic";
 
@@ -38,12 +39,17 @@ export default async function JobDetailPage({
   // 조회수는 write이므로 여기서 fire-and-forget으로 늘리되 렌더링을 막지 않는다.
   void prisma.jobPost.update({ where: { id }, data: { views: { increment: 1 } } }).catch(() => {});
 
-  const existingApplication =
+  const [existingApplication, existingScrap] =
     user?.role === "JOB_SEEKER"
-      ? await prisma.application.findFirst({
-          where: { jobPostId: id, jobSeekerId: user.id, status: { not: "WITHDRAWN" } },
-        })
-      : null;
+      ? await Promise.all([
+          prisma.application.findFirst({
+            where: { jobPostId: id, jobSeekerId: user.id, status: { not: "WITHDRAWN" } },
+          }),
+          prisma.jobScrap.findUnique({
+            where: { jobSeekerId_jobPostId: { jobSeekerId: user.id, jobPostId: id } },
+          }),
+        ])
+      : [null, null];
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
@@ -52,7 +58,12 @@ export default async function JobDetailPage({
           <h1 className="text-xl font-bold text-slate-900">{job.title}</h1>
           {job.foreignerAllowed && <Badge tone="info">외국인가능</Badge>}
         </div>
-        <p className="mt-1 text-slate-500">{job.company.companyName}</p>
+        <div className="mt-1 flex items-center justify-between">
+          <p className="text-slate-500">{job.company.companyName}</p>
+          {user?.role === "JOB_SEEKER" && (
+            <ScrapButton jobPostId={job.id} initialScrapped={!!existingScrap} />
+          )}
+        </div>
       </div>
 
       <Card className="grid grid-cols-2 gap-4 text-sm">

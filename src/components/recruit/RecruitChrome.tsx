@@ -13,7 +13,7 @@ const seekerNav: NavItem[] = [
   { href: "/recruit", label: "홈" },
   { href: "/recruit/jobs", label: "채용" },
   { href: "/recruit/seeker/applications", label: "지원현황" },
-  { href: "/recruit/seeker/notifications", label: "알림" },
+  { href: "/recruit/notifications", label: "알림" },
   { href: "/recruit/seeker", label: "MY" },
 ];
 
@@ -57,6 +57,9 @@ export function RecruitHeader({
           )}
           {user ? (
             <>
+              <Link href="/recruit/notifications" className="hover:text-slate-900">
+                알림
+              </Link>
               <Link
                 href={
                   user.role === "COMPANY"
