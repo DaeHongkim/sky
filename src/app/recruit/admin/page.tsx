@@ -24,8 +24,8 @@ export default async function AdminHomePage() {
     { label: "구직자", value: seekerCount, href: "/recruit/admin/users?role=JOB_SEEKER" },
     { label: "기업회원", value: companyCount, href: "/recruit/admin/users?role=COMPANY" },
     { label: "기업인증 대기", value: pendingCompanies, href: "/recruit/admin/companies" },
-    { label: "진행중 공고", value: openJobs },
-    { label: "누적 지원", value: applications },
+    { label: "진행중 공고", value: openJobs, href: "/recruit/admin/jobs" },
+    { label: "누적 지원", value: applications, href: "/recruit/admin/applications" },
     { label: "비자 검토대기", value: pendingVisa, href: "/recruit/admin/visa" },
   ];
 
@@ -65,6 +65,21 @@ export default async function AdminHomePage() {
         </Link>
         <Link href="/recruit/admin/translations" className="font-medium text-slate-900 underline">
           번역 사용량 →
+        </Link>
+        <Link href="/recruit/admin/jobs" className="font-medium text-slate-900 underline">
+          전체 채용공고 →
+        </Link>
+        <Link href="/recruit/admin/applications" className="font-medium text-slate-900 underline">
+          전체 지원현황 →
+        </Link>
+        <Link href="/recruit/admin/interviews" className="font-medium text-slate-900 underline">
+          전체 면접 →
+        </Link>
+        <Link href="/recruit/admin/scouts" className="font-medium text-slate-900 underline">
+          전체 스카우트 →
+        </Link>
+        <Link href="/recruit/admin/contracts" className="font-medium text-slate-900 underline">
+          전체 계약 →
         </Link>
       </div>
     </div>
