@@ -6,10 +6,16 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { href: "/", label: "사주보기" },
   { href: "/guide", label: "읽는 법" },
+  { href: "/recruit", label: "채용" },
+  { href: "/company", label: "하이홍" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+
+  if (pathname?.startsWith("/recruit") || pathname?.startsWith("/company")) {
+    return null;
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/30 bg-[rgba(238,243,247,0.72)] backdrop-blur-md">
@@ -24,7 +30,7 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-1">
           {navItems.map((item) => {
-            const active = pathname === item.href;
+            const active = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
             return (
               <Link
                 key={item.href}
