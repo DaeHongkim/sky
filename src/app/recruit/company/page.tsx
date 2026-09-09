@@ -2,14 +2,37 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRecruitAuth } from "@/components/recruit/RecruitShell";
 
 export default function CompanyDashboardPage() {
+  const { user, loading: authLoading } = useRecruitAuth();
   const [data, setData] = useState<Record<string, unknown> | null>(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("/api/company/dashboard").then((r) => r.json()).then((j) => setData(j.data));
-  }, []);
+    if (authLoading) return;
+    if (!user || user.role !== "COMPANY") {
+      setError("기업 회원 로그인이 필요합니다.");
+      return;
+    }
+    fetch("/api/company/dashboard")
+      .then((r) => r.json())
+      .then((j) => {
+        if (!j.ok) setError(j.error || "대시보드를 불러오지 못했습니다.");
+        else setData(j.data);
+      });
+  }, [user, authLoading]);
 
+  if (authLoading) return <div className="hr-empty">로딩...</div>;
+  if (error) {
+    return (
+      <div className="hr-card">
+        <h1 className="hr-title">기업 홈</h1>
+        <p className="hr-sub">{error}</p>
+        <Link className="hr-btn hr-btn-primary" href="/recruit/auth/login">로그인</Link>
+      </div>
+    );
+  }
   if (!data) return <div className="hr-empty">대시보드 로딩...</div>;
 
   const stats = [
