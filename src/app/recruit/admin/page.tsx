@@ -8,16 +8,25 @@ export const dynamic = "force-dynamic";
 export default async function AdminHomePage() {
   await requirePageUser(["ADMIN"]);
 
-  const [totalUsers, seekerCount, companyCount, pendingCompanies, openJobs, applications, pendingVisa] =
-    await Promise.all([
-      prisma.user.count({ where: { status: "ACTIVE" } }),
-      prisma.user.count({ where: { role: "JOB_SEEKER", status: "ACTIVE" } }),
-      prisma.user.count({ where: { role: "COMPANY", status: "ACTIVE" } }),
-      prisma.companyProfile.count({ where: { verificationStatus: "PENDING" } }),
-      prisma.jobPost.count({ where: { status: "OPEN" } }),
-      prisma.application.count(),
-      prisma.visaProfile.count({ where: { verificationStatus: { not: "ADMIN_VERIFIED" } } }),
-    ]);
+  const [
+    totalUsers,
+    seekerCount,
+    companyCount,
+    pendingCompanies,
+    openJobs,
+    applications,
+    pendingVisa,
+    pendingReports,
+  ] = await Promise.all([
+    prisma.user.count({ where: { status: "ACTIVE" } }),
+    prisma.user.count({ where: { role: "JOB_SEEKER", status: "ACTIVE" } }),
+    prisma.user.count({ where: { role: "COMPANY", status: "ACTIVE" } }),
+    prisma.companyProfile.count({ where: { verificationStatus: "PENDING" } }),
+    prisma.jobPost.count({ where: { status: "OPEN" } }),
+    prisma.application.count(),
+    prisma.visaProfile.count({ where: { verificationStatus: { not: "ADMIN_VERIFIED" } } }),
+    prisma.report.count({ where: { status: "PENDING" } }),
+  ]);
 
   const stats = [
     { label: "전체 활성회원", value: totalUsers, href: "/recruit/admin/users" },
@@ -27,6 +36,7 @@ export default async function AdminHomePage() {
     { label: "진행중 공고", value: openJobs, href: "/recruit/admin/jobs" },
     { label: "누적 지원", value: applications, href: "/recruit/admin/applications" },
     { label: "비자 검토대기", value: pendingVisa, href: "/recruit/admin/visa" },
+    { label: "신고 대기", value: pendingReports, href: "/recruit/admin/reports" },
   ];
 
   return (
@@ -80,6 +90,9 @@ export default async function AdminHomePage() {
         </Link>
         <Link href="/recruit/admin/contracts" className="font-medium text-slate-900 underline">
           전체 계약 →
+        </Link>
+        <Link href="/recruit/admin/reports" className="font-medium text-slate-900 underline">
+          신고 관리 →
         </Link>
       </div>
     </div>

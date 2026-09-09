@@ -7,6 +7,7 @@ import Badge from "@/components/recruit/ui/Badge";
 import ApplyPanel from "@/components/recruit/ApplyPanel";
 import ScrapButton from "@/components/recruit/ScrapButton";
 import TranslateButton from "@/components/recruit/TranslateButton";
+import ReportButton from "@/components/recruit/ReportButton";
 
 export const dynamic = "force-dynamic";
 
@@ -126,6 +127,12 @@ export default async function JobDetailPage({
         {job.mealSupport && <Badge tone="success">식사제공</Badge>}
         {job.transportationSupport && <Badge tone="success">교통비지원</Badge>}
       </div>
+
+      {user && (
+        <div className="flex justify-end">
+          <ReportButton targetType="JOB_POST" targetId={job.id} />
+        </div>
+      )}
 
       {job.status === "OPEN" &&
         (!user ? (
