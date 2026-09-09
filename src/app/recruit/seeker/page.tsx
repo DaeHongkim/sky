@@ -57,12 +57,20 @@ export default async function SeekerMyPage() {
             ? "기본 프로필이 등록되어 있습니다."
             : "프로필을 아직 작성하지 않았습니다."}
         </p>
-        <Link
-          href="/recruit/seeker/profile"
-          className="mt-3 inline-block text-sm font-medium text-slate-900 underline"
-        >
-          프로필 관리 →
-        </Link>
+        <div className="mt-3 flex gap-4">
+          <Link
+            href="/recruit/seeker/profile"
+            className="text-sm font-medium text-slate-900 underline"
+          >
+            프로필 관리 →
+          </Link>
+          <Link
+            href="/recruit/seeker/visa"
+            className="text-sm font-medium text-slate-900 underline"
+          >
+            비자/체류 정보 →
+          </Link>
+        </div>
       </Card>
     </div>
   );

@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminHomePage() {
   await requirePageUser(["ADMIN"]);
 
-  const [totalUsers, seekerCount, companyCount, pendingCompanies, openJobs, applications] =
+  const [totalUsers, seekerCount, companyCount, pendingCompanies, openJobs, applications, pendingVisa] =
     await Promise.all([
       prisma.user.count({ where: { status: "ACTIVE" } }),
       prisma.user.count({ where: { role: "JOB_SEEKER", status: "ACTIVE" } }),
@@ -16,6 +16,7 @@ export default async function AdminHomePage() {
       prisma.companyProfile.count({ where: { verificationStatus: "PENDING" } }),
       prisma.jobPost.count({ where: { status: "OPEN" } }),
       prisma.application.count(),
+      prisma.visaProfile.count({ where: { verificationStatus: { not: "ADMIN_VERIFIED" } } }),
     ]);
 
   const stats = [
@@ -25,6 +26,7 @@ export default async function AdminHomePage() {
     { label: "기업인증 대기", value: pendingCompanies, href: "/recruit/admin/companies" },
     { label: "진행중 공고", value: openJobs },
     { label: "누적 지원", value: applications },
+    { label: "비자 검토대기", value: pendingVisa, href: "/recruit/admin/visa" },
   ];
 
   return (
