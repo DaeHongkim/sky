@@ -20,9 +20,9 @@ export default async function AdminHomePage() {
     ]);
 
   const stats = [
-    { label: "전체 활성회원", value: totalUsers },
-    { label: "구직자", value: seekerCount },
-    { label: "기업회원", value: companyCount },
+    { label: "전체 활성회원", value: totalUsers, href: "/recruit/admin/users" },
+    { label: "구직자", value: seekerCount, href: "/recruit/admin/users?role=JOB_SEEKER" },
+    { label: "기업회원", value: companyCount, href: "/recruit/admin/users?role=COMPANY" },
     { label: "기업인증 대기", value: pendingCompanies, href: "/recruit/admin/companies" },
     { label: "진행중 공고", value: openJobs },
     { label: "누적 지원", value: applications },
@@ -48,6 +48,21 @@ export default async function AdminHomePage() {
             content
           );
         })}
+      </div>
+
+      <div className="flex flex-wrap gap-3 text-sm">
+        <Link href="/recruit/admin/users" className="font-medium text-slate-900 underline">
+          회원 관리 →
+        </Link>
+        <Link href="/recruit/admin/companies" className="font-medium text-slate-900 underline">
+          기업 인증 관리 →
+        </Link>
+        <Link href="/recruit/admin/visa" className="font-medium text-slate-900 underline">
+          비자 검토 →
+        </Link>
+        <Link href="/recruit/admin/audit-logs" className="font-medium text-slate-900 underline">
+          Audit Log →
+        </Link>
       </div>
     </div>
   );
