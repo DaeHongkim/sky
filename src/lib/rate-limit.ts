@@ -8,6 +8,9 @@ export function isRateLimited(
   key: string,
   { windowMs, max }: { windowMs: number; max: number }
 ): boolean {
+  // 통합 테스트 전용 우회 — 운영/개발 환경에서는 절대 설정하지 않는다 (tests/setup/global-setup.ts 참고).
+  if (process.env.RATE_LIMIT_DISABLED === "1") return false;
+
   const now = Date.now();
   const timestamps = (buckets.get(key) ?? []).filter(
     (t) => now - t < windowMs
