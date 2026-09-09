@@ -67,12 +67,12 @@ export default async function CompanyMyPage() {
   });
 
   const stats = [
-    { label: "진행중 공고", value: openJobs },
-    { label: "오늘 지원자", value: todayApplicants },
-    { label: "신규 지원자", value: newApplicants },
-    { label: "면접예정", value: interviewsUpcoming },
-    { label: "채용확정", value: hiredCount },
-    { label: "마감임박(7일)", value: closingSoon },
+    { label: "진행중 공고", value: openJobs, href: "/recruit/company/jobs" },
+    { label: "오늘 지원자", value: todayApplicants, href: "/recruit/company/applicants" },
+    { label: "신규 지원자", value: newApplicants, href: "/recruit/company/applicants" },
+    { label: "면접예정", value: interviewsUpcoming, href: "/recruit/company/interviews" },
+    { label: "채용확정", value: hiredCount, href: "/recruit/company/applicants" },
+    { label: "마감임박(7일)", value: closingSoon, href: "/recruit/company/jobs" },
   ];
 
   return (
@@ -101,10 +101,12 @@ export default async function CompanyMyPage() {
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {stats.map((s) => (
-          <Card key={s.label} className="text-center">
-            <p className="text-2xl font-bold text-slate-900">{s.value}</p>
-            <p className="mt-1 text-xs text-slate-500">{s.label}</p>
-          </Card>
+          <Link key={s.label} href={s.href}>
+            <Card className="text-center transition-shadow hover:shadow-md">
+              <p className="text-2xl font-bold text-slate-900">{s.value}</p>
+              <p className="mt-1 text-xs text-slate-500">{s.label}</p>
+            </Card>
+          </Link>
         ))}
       </div>
 

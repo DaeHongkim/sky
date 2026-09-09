@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function SeekerMyPage() {
   const user = await requirePageUser(["JOB_SEEKER"]);
 
-  const [profile, resumeCount, applicationCount, scrapCount, unreadNotifications, scoutCount] =
+  const [profile, resumeCount, applicationCount, scrapCount, unreadNotifications, scoutCount, interviewCount] =
     await Promise.all([
       prisma.jobSeekerProfile.findUnique({ where: { userId: user.id } }),
       prisma.resume.count({ where: { userId: user.id } }),
@@ -19,11 +19,15 @@ export default async function SeekerMyPage() {
       prisma.scoutOffer.count({
         where: { jobSeekerId: user.id, status: { in: ["PENDING", "OPENED"] } },
       }),
+      prisma.interview.count({
+        where: { jobSeekerId: user.id, status: { in: ["REQUESTED", "CONFIRMED"] } },
+      }),
     ]);
 
   const stats = [
     { label: "이력서", value: resumeCount, href: "/recruit/seeker/resumes" },
     { label: "지원현황", value: applicationCount, href: "/recruit/seeker/applications" },
+    { label: "면접", value: interviewCount, href: "/recruit/seeker/interviews" },
     { label: "스크랩", value: scrapCount, href: "/recruit/seeker/scraps" },
     { label: "스카우트", value: scoutCount, href: "/recruit/seeker/scouts" },
     { label: "안읽은 알림", value: unreadNotifications, href: "/recruit/notifications" },

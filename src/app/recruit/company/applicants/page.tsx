@@ -5,6 +5,7 @@ import Card from "@/components/recruit/ui/Card";
 import Badge from "@/components/recruit/ui/Badge";
 import EmptyState from "@/components/recruit/ui/EmptyState";
 import ApplicantStatusControl from "@/components/recruit/ApplicantStatusControl";
+import InterviewRequestForm from "@/components/recruit/InterviewRequestForm";
 
 export const dynamic = "force-dynamic";
 
@@ -85,6 +86,9 @@ export default async function CompanyApplicantsPage({
                   currentMemo={app.companyMemo ?? ""}
                 />
               </div>
+              {!["HIRED", "REJECTED", "WITHDRAWN"].includes(app.status) && (
+                <InterviewRequestForm applicationId={app.id} />
+              )}
             </Card>
           ))}
         </div>
