@@ -1,24 +1,36 @@
-# 하늘사주 (SKY SAJU)
+# HIHONG RECRUIT (베타 → 실서비스 확장)
 
-생년월일시로 사주팔자를 세우고, 일간·오행·십신·대운을 읽는 Next.js 사주 시스템입니다.
+구직자·기업 채용 플랫폼. 기존 하늘사주/점포 앱은 유지하고 `/recruit` 경로에 채용 SaaS를 추가했습니다.
 
-## 기능
-
-- 양력/음력(윤달) 생년월일 입력
-- 시진 선택 또는 시간 모름
-- 년·월·일·시 네 기둥 만세력 계산 (`manseryeok`)
-- 오행 균형, 일간 해석, 대운 흐름
-
-## 시작하기
+## 빠른 시작
 
 ```bash
 npm install
+cp .env.example .env   # AUTH_SECRET, DATABASE_URL 설정
+npx prisma migrate deploy
+npm run db:seed
 npm run dev
 ```
 
-[http://localhost:3000](http://localhost:3000) 에서 확인합니다.
+- 채용 앱: http://localhost:3000/recruit
+- 시드 계정
+  - 구직자 `seeker@example.com` / `Test1234!`
+  - 기업 `company@example.com` / `Test1234!`
+  - 관리자 `admin@hihong.recruit` / `Test1234!`
 
-## 기술
+## 스크립트
 
-- Next.js 16 / React 19 / Tailwind CSS 4
-- [manseryeok](https://www.npmjs.com/package/manseryeok) — KASI 절기 기반 만세력
+- `npm run build` — Prisma generate + Next build
+- `npm test` — Vitest (auth/권한/채용 플로우)
+- `npm run db:migrate` — migration 생성/적용
+- `npm run db:seed` — 샘플 계정/공고 (reset 아님)
+
+## 범위
+
+채용확정(HIRED)까지. 근태·급여·POS·매장운영은 포함하지 않으며, HQ 연동은 `POST /api/integrations/hq/hired` + outbox 이벤트만 준비.
+
+---
+
+# 하늘사주 (기존)
+
+생년월일시 사주팔자 시스템 — `/` 경로에 유지됩니다.

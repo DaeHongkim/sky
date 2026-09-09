@@ -1,0 +1,25 @@
+{
+  "name": "HIHONG RECRUIT",
+  "short_name": "HIHONG",
+  "description": "구직자와 기업을 연결하는 하이홍 채용 플랫폼",
+  "start_url": "/recruit",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3f5f8",
+  "theme_color": "#e86a2e",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

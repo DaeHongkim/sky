@@ -11,6 +11,11 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname();
 
+  // HIHONG RECRUIT has its own shell/navigation.
+  if (pathname?.startsWith("/recruit")) {
+    return null;
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/30 bg-[rgba(238,243,247,0.72)] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
@@ -39,6 +44,12 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <Link
+            href="/recruit"
+            className="px-3 py-2 text-sm text-[var(--ink-soft)] hover:text-[var(--ink)]"
+          >
+            채용
+          </Link>
           <Link
             href="/#saju-form"
             className="ml-2 rounded-md bg-[var(--ink)] px-3 py-2 text-sm text-[var(--paper)] transition-opacity hover:opacity-90"
