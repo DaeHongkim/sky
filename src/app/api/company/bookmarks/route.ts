@@ -9,7 +9,7 @@ export async function GET() {
     const bookmarks = await prisma.talentBookmark.findMany({
       where: { companyId: user.id },
       orderBy: { createdAt: "desc" },
-      include: { jobSeeker: { include: { jobSeekerProfile: true } } },
+      include: { jobSeeker: { select: { jobSeekerProfile: true } } },
     });
     return NextResponse.json({ bookmarks });
   } catch (error) {

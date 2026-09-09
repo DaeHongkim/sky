@@ -34,7 +34,7 @@ export default async function CompanyContractDetailPage({
 
   const contract = await prisma.employmentContract.findUnique({
     where: { id },
-    include: { jobSeeker: { include: { jobSeekerProfile: { select: { name: true } } } } },
+    include: { jobSeeker: { select: { jobSeekerProfile: { select: { name: true } } } } },
   });
   if (!contract || contract.companyId !== user.id) notFound();
 

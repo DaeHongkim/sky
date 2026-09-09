@@ -13,7 +13,7 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
       include: {
         company: { select: { companyName: true } },
-        jobSeeker: { include: { jobSeekerProfile: { select: { name: true } } } },
+        jobSeeker: { select: { jobSeekerProfile: { select: { name: true } } } },
         jobPost: { select: { title: true } },
       },
     });

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const profiles = await prisma.visaProfile.findMany({
       where: status ? { verificationStatus: status as never } : undefined,
       orderBy: { updatedAt: "desc" },
-      include: { user: { include: { jobSeekerProfile: { select: { name: true } } } } },
+      include: { user: { select: { jobSeekerProfile: { select: { name: true } }, email: true } } },
     });
 
     return NextResponse.json({ profiles });

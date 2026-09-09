@@ -28,7 +28,7 @@ export default async function CompanyOffersPage() {
     orderBy: { createdAt: "desc" },
     include: {
       application: { include: { jobPost: { select: { title: true } } } },
-      jobSeeker: { include: { jobSeekerProfile: { select: { name: true } } } },
+      jobSeeker: { select: { jobSeekerProfile: { select: { name: true } } } },
       contracts: { orderBy: { version: "desc" }, take: 1 },
     },
   });

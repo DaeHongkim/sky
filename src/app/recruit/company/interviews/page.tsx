@@ -35,7 +35,7 @@ export default async function CompanyInterviewsPage() {
     orderBy: { scheduledAt: "asc" },
     include: {
       application: { include: { jobPost: { select: { title: true } } } },
-      jobSeeker: { include: { jobSeekerProfile: { select: { name: true } } } },
+      jobSeeker: { select: { jobSeekerProfile: { select: { name: true } } } },
     },
   });
 

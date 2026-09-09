@@ -37,7 +37,7 @@ export default async function CompanyApplicantsPage({
       include: {
         jobPost: { select: { id: true, title: true } },
         resume: { select: { id: true, title: true } },
-        jobSeeker: { include: { jobSeekerProfile: { select: { name: true, phone: true } } } },
+        jobSeeker: { select: { jobSeekerProfile: { select: { name: true, phone: true } } } },
       },
     }),
     prisma.jobPost.findMany({

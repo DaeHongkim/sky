@@ -23,7 +23,7 @@ export default async function AdminVisaPage() {
 
   const profiles = await prisma.visaProfile.findMany({
     orderBy: { updatedAt: "desc" },
-    include: { user: { include: { jobSeekerProfile: { select: { name: true } } } } },
+    include: { user: { select: { jobSeekerProfile: { select: { name: true } }, email: true } } },
   });
 
   return (

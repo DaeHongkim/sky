@@ -27,7 +27,7 @@ export default async function SeekerOffersPage() {
     where: { jobSeekerId: user.id },
     orderBy: { createdAt: "desc" },
     include: {
-      application: { include: { jobPost: { select: { title: true } } } },
+      application: { select: { jobPost: { select: { title: true } } } },
       company: { select: { companyName: true } },
       contracts: { orderBy: { version: "desc" }, take: 1 },
     },

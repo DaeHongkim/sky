@@ -33,7 +33,7 @@ export default async function SeekerInterviewsPage() {
   const interviews = await prisma.interview.findMany({
     where: { jobSeekerId: user.id },
     orderBy: { scheduledAt: "asc" },
-    include: { application: { include: { jobPost: { select: { title: true } } } }, company: { select: { companyName: true } } },
+    include: { application: { select: { jobPost: { select: { title: true } } } }, company: { select: { companyName: true } } },
   });
 
   return (

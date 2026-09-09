@@ -28,7 +28,7 @@ export async function GET(
         resume: {
           include: { careers: true, educations: true, certificates: true, languages: true, portfolios: true },
         },
-        jobSeeker: { include: { jobSeekerProfile: true } },
+        jobSeeker: { select: { email: true, jobSeekerProfile: true } },
         histories: { orderBy: { createdAt: "asc" } },
       },
     });

@@ -61,7 +61,7 @@ export default async function CompanyMyPage() {
     orderBy: { appliedAt: "desc" },
     take: 5,
     include: {
-      jobSeeker: { include: { jobSeekerProfile: { select: { name: true } } } },
+      jobSeeker: { select: { jobSeekerProfile: { select: { name: true } } } },
       jobPost: { select: { title: true } },
     },
   });
