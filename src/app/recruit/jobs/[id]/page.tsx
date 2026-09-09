@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db/prisma";
 import { getCurrentUser } from "@/lib/auth/current-user";
 import Card from "@/components/recruit/ui/Card";
 import Badge from "@/components/recruit/ui/Badge";
+import ApplyPanel from "@/components/recruit/ApplyPanel";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +37,13 @@ export default async function JobDetailPage({
 
   // 조회수는 write이므로 여기서 fire-and-forget으로 늘리되 렌더링을 막지 않는다.
   void prisma.jobPost.update({ where: { id }, data: { views: { increment: 1 } } }).catch(() => {});
+
+  const existingApplication =
+    user?.role === "JOB_SEEKER"
+      ? await prisma.application.findFirst({
+          where: { jobPostId: id, jobSeekerId: user.id, status: { not: "WITHDRAWN" } },
+        })
+      : null;
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
@@ -103,10 +112,24 @@ export default async function JobDetailPage({
         {job.transportationSupport && <Badge tone="success">교통비지원</Badge>}
       </div>
 
-      <div className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-500">
-        지원하기 기능은 이력서 시스템(다음 단계)과 함께 연결될 예정입니다. 현재는 공고
-        열람까지 지원됩니다.
-      </div>
+      {job.status === "OPEN" &&
+        (!user ? (
+          <div className="rounded-lg border border-dashed border-slate-300 p-4 text-center text-sm text-slate-500">
+            지원하려면 먼저{" "}
+            <Link href="/recruit/login" className="font-medium text-slate-900 underline">
+              로그인
+            </Link>
+            하세요.
+          </div>
+        ) : user.role === "JOB_SEEKER" ? (
+          existingApplication ? (
+            <p className="rounded-lg bg-slate-100 p-3 text-center text-sm text-slate-600">
+              이미 지원한 공고입니다. (상태: {existingApplication.status})
+            </p>
+          ) : (
+            <ApplyPanel jobPostId={job.id} />
+          )
+        ) : null)}
     </div>
   );
 }
