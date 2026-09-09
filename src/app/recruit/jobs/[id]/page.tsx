@@ -6,6 +6,7 @@ import Card from "@/components/recruit/ui/Card";
 import Badge from "@/components/recruit/ui/Badge";
 import ApplyPanel from "@/components/recruit/ApplyPanel";
 import ScrapButton from "@/components/recruit/ScrapButton";
+import TranslateButton from "@/components/recruit/TranslateButton";
 
 export const dynamic = "force-dynamic";
 
@@ -107,7 +108,10 @@ export default async function JobDetailPage({
       </Card>
 
       <Card>
-        <h2 className="font-semibold text-slate-900">상세 내용</h2>
+        <div className="flex items-start justify-between gap-2">
+          <h2 className="font-semibold text-slate-900">상세 내용</h2>
+          <TranslateButton text={job.description} sourceType="JOB_POST" sourceId={job.id} />
+        </div>
         <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">{job.description}</p>
         {job.requirements && (
           <>

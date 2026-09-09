@@ -63,6 +63,9 @@ export default async function AdminHomePage() {
         <Link href="/recruit/admin/audit-logs" className="font-medium text-slate-900 underline">
           Audit Log →
         </Link>
+        <Link href="/recruit/admin/translations" className="font-medium text-slate-900 underline">
+          번역 사용량 →
+        </Link>
       </div>
     </div>
   );
