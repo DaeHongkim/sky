@@ -136,6 +136,12 @@ export default async function CompanyMyPage() {
         )}
       </Card>
 
+      <div className="flex flex-wrap gap-3 text-sm">
+        <Link href="/recruit/company/offers" className="font-medium text-slate-900 underline">
+          Offer 관리 →
+        </Link>
+      </div>
+
       <Link
         href="/recruit/company/jobs/new"
         className="rounded-lg bg-slate-900 px-4 py-3 text-center text-sm font-medium text-white hover:bg-slate-800"

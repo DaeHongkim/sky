@@ -6,6 +6,7 @@ import Badge from "@/components/recruit/ui/Badge";
 import EmptyState from "@/components/recruit/ui/EmptyState";
 import ApplicantStatusControl from "@/components/recruit/ApplicantStatusControl";
 import InterviewRequestForm from "@/components/recruit/InterviewRequestForm";
+import OfferForm from "@/components/recruit/OfferForm";
 
 export const dynamic = "force-dynamic";
 
@@ -87,7 +88,10 @@ export default async function CompanyApplicantsPage({
                 />
               </div>
               {!["HIRED", "REJECTED", "WITHDRAWN"].includes(app.status) && (
-                <InterviewRequestForm applicationId={app.id} />
+                <div className="flex flex-wrap gap-2">
+                  <InterviewRequestForm applicationId={app.id} />
+                  <OfferForm applicationId={app.id} />
+                </div>
               )}
             </Card>
           ))}
