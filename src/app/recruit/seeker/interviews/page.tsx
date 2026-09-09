@@ -4,6 +4,7 @@ import Card from "@/components/recruit/ui/Card";
 import Badge from "@/components/recruit/ui/Badge";
 import EmptyState from "@/components/recruit/ui/EmptyState";
 import InterviewStatusControl from "@/components/recruit/InterviewStatusControl";
+import AiPrescreenSeekerPanel from "@/components/recruit/AiPrescreenSeekerPanel";
 
 export const dynamic = "force-dynamic";
 
@@ -73,6 +74,9 @@ export default async function SeekerInterviewsPage() {
                     : []
                 }
               />
+              {iv.interviewType === "AI_PRESCREEN" && (
+                <AiPrescreenSeekerPanel interviewId={iv.id} />
+              )}
             </Card>
           ))}
         </div>

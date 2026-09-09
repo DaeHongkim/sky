@@ -59,6 +59,7 @@ export default function InterviewRequestForm({ applicationId }: { applicationId:
           <option value="ONLINE">화상면접</option>
           <option value="OFFLINE">대면면접</option>
           <option value="PHONE">전화면접</option>
+          <option value="AI_PRESCREEN">AI 사전면접</option>
         </Select>
         <Input type="datetime-local" required value={scheduledAt} onChange={(e) => setScheduledAt(e.target.value)} />
       </div>
