@@ -5,6 +5,7 @@ import Card from "@/components/recruit/ui/Card";
 import Badge from "@/components/recruit/ui/Badge";
 import EmptyState from "@/components/recruit/ui/EmptyState";
 import WithdrawButton from "@/components/recruit/WithdrawButton";
+import StartMessageButton from "@/components/recruit/StartMessageButton";
 
 export const dynamic = "force-dynamic";
 
@@ -68,11 +69,12 @@ export default async function SeekerApplicationsPage() {
                 </div>
                 <Badge tone={statusTone[app.status]}>{statusLabel[app.status]}</Badge>
               </div>
-              {!["HIRED", "REJECTED", "WITHDRAWN"].includes(app.status) && (
-                <div className="mt-3">
+              <div className="mt-3 flex flex-wrap gap-2">
+                <StartMessageButton applicationId={app.id} role="JOB_SEEKER" />
+                {!["HIRED", "REJECTED", "WITHDRAWN"].includes(app.status) && (
                   <WithdrawButton applicationId={app.id} />
-                </div>
-              )}
+                )}
+              </div>
             </Card>
           ))}
         </div>

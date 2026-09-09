@@ -7,6 +7,7 @@ import EmptyState from "@/components/recruit/ui/EmptyState";
 import ApplicantStatusControl from "@/components/recruit/ApplicantStatusControl";
 import InterviewRequestForm from "@/components/recruit/InterviewRequestForm";
 import OfferForm from "@/components/recruit/OfferForm";
+import StartMessageButton from "@/components/recruit/StartMessageButton";
 
 export const dynamic = "force-dynamic";
 
@@ -87,8 +88,11 @@ export default async function CompanyApplicantsPage({
                   currentMemo={app.companyMemo ?? ""}
                 />
               </div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <StartMessageButton applicationId={app.id} role="COMPANY" />
+              </div>
               {!["HIRED", "REJECTED", "WITHDRAWN"].includes(app.status) && (
-                <div className="flex flex-wrap gap-2">
+                <div className="mt-2 flex flex-wrap gap-2">
                   <InterviewRequestForm applicationId={app.id} />
                   <OfferForm applicationId={app.id} />
                 </div>

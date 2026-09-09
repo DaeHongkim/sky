@@ -57,6 +57,18 @@ export function RecruitHeader({
           )}
           {user ? (
             <>
+              {user.role !== "ADMIN" && (
+                <Link
+                  href={
+                    user.role === "COMPANY"
+                      ? "/recruit/company/messages"
+                      : "/recruit/seeker/messages"
+                  }
+                  className="hover:text-slate-900"
+                >
+                  메시지
+                </Link>
+              )}
               <Link href="/recruit/notifications" className="hover:text-slate-900">
                 알림
               </Link>
