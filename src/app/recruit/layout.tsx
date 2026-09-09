@@ -1,23 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Noto_Sans_KR } from "next/font/google";
+import { Gothic_A1, Noto_Serif_KR } from "next/font/google";
 import "./recruit.css";
 import { RecruitShell } from "@/components/recruit/RecruitShell";
 
-const sans = Noto_Sans_KR({
+const sans = Gothic_A1({
   subsets: ["latin"],
   weight: ["400", "500", "700", "900"],
   variable: "--font-hr-sans",
 });
 
-const display = Manrope({
+const display = Noto_Serif_KR({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700"],
   variable: "--font-hr-display",
 });
 
 export const metadata: Metadata = {
-  title: "HIHONG RECRUIT",
-  description: "구직자와 기업을 연결하는 하이홍 채용 플랫폼",
+  title: "HIHONG RECRUIT | HIHONG PEOPLE",
+  description:
+    "HIHONG PEOPLE 외국인·국내 인재 채용 플랫폼 — 지원부터 계약·채용확정까지",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#e86a2e",
+  themeColor: "#a95b34",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,

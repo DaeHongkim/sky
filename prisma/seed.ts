@@ -93,6 +93,65 @@ async function main() {
     });
   }
 
+  const benchmarkJobs = [
+    {
+      title: "외식업 홀·주방 스태프",
+      jobCategory: "외식",
+      description: "F&B Service & Kitchen Staff — HIHONG PEOPLE 벤치마크 직종",
+      workLocation: "부산 · 경남",
+      employmentType: "정규직 / 계약직",
+      housingSupport: true,
+      mealSupport: true,
+    },
+    {
+      title: "숙박업 하우스키핑",
+      jobCategory: "숙박",
+      description: "Lodging Housekeeping — HIHONG PEOPLE 벤치마크 직종",
+      workLocation: "부산 · 경남",
+      employmentType: "정규직 / 파견",
+      housingSupport: true,
+      mealSupport: true,
+    },
+    {
+      title: "생산·제조 인력",
+      jobCategory: "제조",
+      description: "Manufacturing & Production — HIHONG PEOPLE 벤치마크 직종",
+      workLocation: "경남",
+      employmentType: "정규직 / 파견",
+      housingSupport: false,
+      mealSupport: true,
+    },
+    {
+      title: "물류·창고 인력",
+      jobCategory: "물류",
+      description: "Logistics & Warehouse — HIHONG PEOPLE 벤치마크 직종",
+      workLocation: "부산 · 경남",
+      employmentType: "정규직 / 파견",
+      housingSupport: false,
+      mealSupport: false,
+    },
+  ];
+
+  for (const job of benchmarkJobs) {
+    const found = await prisma.jobPost.findFirst({
+      where: { companyId: company.id, title: job.title },
+    });
+    if (!found) {
+      await prisma.jobPost.create({
+        data: {
+          companyId: company.id,
+          ...job,
+          foreignerAllowed: true,
+          visaConditions: "취업가능 비자 — 공식 확인 필요",
+          koreanLevel: "초급~중급",
+          status: "OPEN",
+          responsibilities: "채용 기업 요청에 따라 확정",
+          requirements: "국적·언어·한국어 수준·경력·희망지역 확인",
+        },
+      });
+    }
+  }
+
   const resumeCount = await prisma.resume.count({ where: { userId: seeker.id } });
   if (resumeCount === 0) {
     await prisma.resume.create({

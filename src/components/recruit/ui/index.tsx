@@ -130,6 +130,7 @@ export function BrandLink() {
       <span className="hr-brand-mark">H</span>
       <span className="hr-brand-text">
         HIHONG <em>RECRUIT</em>
+        <small>HIHONG PEOPLE</small>
       </span>
     </Link>
   );
