@@ -11,6 +11,9 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname();
 
+  // HIHONG RECRUIT는 별도 헤더/내비게이션을 사용하는 독립 영역이다.
+  if (pathname?.startsWith("/recruit")) return null;
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/30 bg-[rgba(238,243,247,0.72)] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
