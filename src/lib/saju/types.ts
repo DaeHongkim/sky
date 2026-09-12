@@ -58,3 +58,34 @@ export interface SajuAnalysis {
   personality: string[];
   fortuneHints: string[];
 }
+
+export type ElementRelationType = "상생" | "비화" | "상극";
+
+export type BranchRelationType = "육합" | "삼합" | "충" | "원진" | "평범";
+
+export interface RelationDetail<T extends string> {
+  type: T;
+  label: string;
+  description: string;
+}
+
+export interface CompatibilityPerson {
+  dayMaster: string;
+  dayMasterElement: FiveElement;
+  dayBranch: string;
+  yearBranch: string;
+}
+
+export interface CompatibilityAnalysis {
+  score: number;
+  tier: string;
+  headline: string;
+  personA: CompatibilityPerson;
+  personB: CompatibilityPerson;
+  dayMasterRelation: RelationDetail<ElementRelationType>;
+  dayBranchRelation: RelationDetail<BranchRelationType>;
+  yearBranchRelation: RelationDetail<BranchRelationType>;
+  elementNote: string;
+  strengths: string[];
+  cautions: string[];
+}
